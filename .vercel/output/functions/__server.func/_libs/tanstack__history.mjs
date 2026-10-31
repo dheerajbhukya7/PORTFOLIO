@@ -1,4 +1,4 @@
-//#region node_modules/@tanstack/history/dist/esm/index.js
+// node_modules/@tanstack/history/dist/esm/index.js
 var stateIndexKey = "__TSR_index";
 var popStateEvent = "popstate";
 var beforeUnloadEvent = "beforeunload";
@@ -404,5 +404,4 @@ function parseHref(href, state) {
 function createRandomKey() {
 	return (Math.random() + 1).toString(36).substring(7);
 }
-//#endregion
 export { parseHref as i, createServerHistory as n, normalizeProtocolRelative as r, createBrowserHistory as t };

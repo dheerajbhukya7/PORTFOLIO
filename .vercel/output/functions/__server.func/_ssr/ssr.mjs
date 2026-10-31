@@ -1,10 +1,10 @@
 import { n as __exportAll } from "../_runtime.mjs";
 import { E as fromJSON, F as resolveManifestCssLink, G as isRedirect, H as isDangerousProtocol, I as waitForReason, K as rootRouteId, L as _getRenderedMatches, M as getScriptPreloadAttrs, N as getStylesheetHref, O as toCrossJSONAsync, P as resolveManifestAssetLink, R as executeRewriteInput, S as require_jsx_runtime, U as isPromise, Y as require_react, a as isSsrResponse, c as stripSsrResponseBody, i as disposeSsrResponse, k as toCrossJSONStream, m as RouterProvider, n as bindSsrResponseToRequest, o as normalizeSsrResponse, q as isNotFound, r as defineHandlerCallback, s as replaceSsrResponse, t as renderRouterToStream, z as invariant } from "../_libs/@tanstack/react-router+[...].mjs";
-import { n as createServerHistory } from "../_libs/tanstack__history.mjs";
-import { a as defaultSerovalDeserializerPlugins, i as createRawStreamRPCPlugin, n as attachRouterServerSsrUtils, o as makeSerovalPlugin, r as getNormalizedURL, s as createSerializationAdapter, t as mergeHeaders } from "../_libs/@tanstack/router-core+[...].mjs";
 import { n as toResponse, t as H3Event } from "../_libs/h3-v2+rou3.mjs";
+import { a as defaultSerovalDeserializerPlugins, i as createRawStreamRPCPlugin, n as attachRouterServerSsrUtils, o as makeSerovalPlugin, r as getNormalizedURL, s as createSerializationAdapter, t as mergeHeaders } from "../_libs/@tanstack/router-core+[...].mjs";
+import { n as createServerHistory } from "../_libs/tanstack__history.mjs";
 import { AsyncLocalStorage } from "node:async_hooks";
-//#region node_modules/.nitro/vite/services/ssr/index.js
+// node_modules/.nitro/vite/services/ssr/index.js
 var ssr_exports = /* @__PURE__ */ __exportAll({
 	createServerEntry: () => createServerEntry,
 	default: () => server_default
@@ -100,7 +100,7 @@ var HEADERS = { TSS_SHELL: "X-TSS_SHELL" };
 * the dev styles URL for route-scoped CSS collection.
 */
 async function getStartManifest(matchedRoutes) {
-	const { tsrStartManifest } = await import("../_tanstack-start-manifest_v-9tJa1IvT.mjs");
+	const { tsrStartManifest } = await import("../_tanstack-start-manifest_v-BtJgdCE_.mjs");
 	const startManifest = tsrStartManifest();
 	let routes = startManifest.routes;
 	routes[rootRouteId];
@@ -1341,9 +1341,9 @@ var getBaseManifest = getProdBaseManifest;
 var createEarlyHintsForRequest = createEarlyHintsCollector;
 async function loadEntries() {
 	const [routerEntry, startEntry, pluginAdapters] = await Promise.all([
-		import("./router-BOA_psFI.mjs").then((n) => n.t),
-		import("./start-5Z2QO8AU.mjs"),
-		import("./empty-plugin-adapters-D9UWiqvJ.mjs")
+		import("./router-D60XL2s5.mjs").then((n) => n.t),
+		import("./start-COmmreO7.mjs"),
+		import("./empty-plugin-adapters-CeyhLWeJ.mjs")
 	]);
 	return {
 		routerEntry,
@@ -1805,5 +1805,4 @@ function createServerEntry(entry) {
 	} };
 }
 var server_default = createServerEntry({ fetch });
-//#endregion
 export { createServerEntry, server_default as default, ssr_exports as t };

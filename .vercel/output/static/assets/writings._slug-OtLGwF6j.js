@@ -1,1 +1,0 @@
-import{r as e}from"./shell-CI5Xzk_x.js";import{l as t,p as n}from"./index-jQgHo57u.js";var r=n(),i=()=>(0,r.jsxs)(e,{children:[(0,r.jsx)(`p`,{children:`That note is not here.`}),(0,r.jsx)(t,{to:`/writings`,className:`mt-4 inline-block text-olive`,children:`Back to writings`})]});export{i as notFoundComponent};

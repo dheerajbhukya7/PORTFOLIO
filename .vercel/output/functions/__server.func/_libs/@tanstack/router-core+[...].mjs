@@ -1,5 +1,5 @@
 import { A as createInlineCssPlaceholderAsset, B as createSieveCache, C as createPlugin, D as isStream, I as waitForReason, K as rootRouteId, L as _getRenderedMatches, N as getStylesheetHref, T as crossSerializeStream, V as decodePath, W as dehydrateSsrMatchId, j as createInlineCssStyleAsset, l as createHydrationScripts, u as GLOBAL_TSR, w as createStream, z as invariant } from "./react-router+[...].mjs";
-//#region node_modules/@tanstack/router-core/dist/esm/ssr/serializer/transformer.js
+// node_modules/@tanstack/router-core/dist/esm/ssr/serializer/transformer.js
 /**
 * Create a strongly-typed serialization adapter for SSR hydration.
 * Use to register custom types with the router serializer.
@@ -7,8 +7,7 @@ import { A as createInlineCssPlaceholderAsset, B as createSieveCache, C as creat
 function createSerializationAdapter(opts) {
 	return opts;
 }
-//#endregion
-//#region node_modules/@tanstack/router-core/dist/esm/ssr/serializer/makeSerovalPlugin.js
+// node_modules/@tanstack/router-core/dist/esm/ssr/serializer/makeSerovalPlugin.js
 /** Create a Seroval plugin for client/server symmetric (de)serialization. */
 /* @__NO_SIDE_EFFECTS__ */
 function makeSerovalPlugin(serializationAdapter) {
@@ -32,8 +31,7 @@ function makeSerovalPlugin(serializationAdapter) {
 		}
 	});
 }
-//#endregion
-//#region node_modules/@tanstack/router-core/dist/esm/ssr/serializer/RawStream.js
+// node_modules/@tanstack/router-core/dist/esm/ssr/serializer/RawStream.js
 /**
 * Marker class for ReadableStream<Uint8Array> that should be serialized
 * with base64/text encoding (JSON and SSR) or binary framing
@@ -61,8 +59,7 @@ var RawStream = class {
 		this.hint = options?.hint ?? "binary";
 	}
 };
-//#endregion
-//#region node_modules/@tanstack/router-core/dist/esm/ssr/serializer/ShallowErrorPlugin.js
+// node_modules/@tanstack/router-core/dist/esm/ssr/serializer/ShallowErrorPlugin.js
 /**
 * this plugin serializes only the `message` part of an Error
 * this helps with serializing e.g. a ZodError which has functions attached that cannot be serialized
@@ -90,8 +87,7 @@ var ShallowErrorPlugin = /* @__PURE__ */ createPlugin({
 		return new Error(ctx.deserialize(node.message));
 	}
 });
-//#endregion
-//#region node_modules/@tanstack/router-core/dist/esm/ssr/serializer/rawStreamCodec.js
+// node_modules/@tanstack/router-core/dist/esm/ssr/serializer/rawStreamCodec.js
 function toBase64(bytes) {
 	const chunks = [];
 	for (let i = 0; i < bytes.length; i += 32768) chunks.push(String.fromCharCode.apply(null, bytes.subarray(i, i + 32768)));
@@ -208,8 +204,7 @@ function fromEncodedStream(source, decode) {
 		}
 	});
 }
-//#endregion
-//#region node_modules/@tanstack/router-core/dist/esm/ssr/serializer/RawStreamJSONPlugin.js
+// node_modules/@tanstack/router-core/dist/esm/ssr/serializer/RawStreamJSONPlugin.js
 /**
 * Serializes a RawStream into JSON requests and static-cache responses.
 * The optional signal stops the source pump when the request is aborted.
@@ -246,8 +241,7 @@ var RawStreamJSONDeserializePlugin = /* @__PURE__ */ createPlugin({
 		return fromEncodedStream(ctx.deserialize(node.stream), ctx.deserialize(node.text) ? decodeText : fromBase64);
 	}
 });
-//#endregion
-//#region node_modules/seroval-plugins/dist/web-CDQeyEaf.js
+// node_modules/seroval-plugins/dist/web-CDQeyEaf.js
 var READABLE_STREAM_FACTORY = {};
 var READABLE_STREAM_FACTORY_CONSTRUCTOR = (stream) => new ReadableStream({ start(controller) {
 	stream.on({
@@ -354,8 +348,7 @@ var ReadableStreamPlugin = /* @__PURE__ */ createPlugin({
 		return READABLE_STREAM_FACTORY_CONSTRUCTOR(stream);
 	}
 });
-//#endregion
-//#region node_modules/@tanstack/router-core/dist/esm/ssr/serializer/seroval-plugins.js
+// node_modules/@tanstack/router-core/dist/esm/ssr/serializer/seroval-plugins.js
 /**
 * Plugins for JSON transport from a client: serializes RawStream arguments
 * and reads plain JSON responses, which never carry RawStream nodes.
@@ -375,8 +368,7 @@ function createDefaultSerovalPlugins(signal) {
 * precedes the serialize half; it never matches during serialization.
 */
 var defaultSerovalDeserializerPlugins = [RawStreamJSONDeserializePlugin, .../* @__PURE__ */ createDefaultSerovalPlugins()];
-//#endregion
-//#region node_modules/@tanstack/router-core/dist/esm/ssr/serializer/RawStreamRPCPlugin.js
+// node_modules/@tanstack/router-core/dist/esm/ssr/serializer/RawStreamRPCPlugin.js
 /**
 * Server-side RawStream plugin for multiplexed server-function responses.
 * The `hint` is ignored: framed responses always carry raw bytes.
@@ -398,8 +390,7 @@ function createRawStreamRPCPlugin(onRawStream) {
 		deserialize: void 0
 	});
 }
-//#endregion
-//#region node_modules/@tanstack/router-core/dist/esm/ssr/serializer/makeSsrSerovalPlugin.js
+// node_modules/@tanstack/router-core/dist/esm/ssr/serializer/makeSsrSerovalPlugin.js
 /**
 * Create a Seroval plugin for server-side serialization only. `tracker.didRun`
 * becomes true once the plugin serialized a value.
@@ -419,8 +410,7 @@ function makeSsrSerovalPlugin(serializationAdapter, tracker) {
 		deserialize: void 0
 	});
 }
-//#endregion
-//#region node_modules/@tanstack/router-core/dist/esm/ssr/serializer/RawStreamSSRPlugin.js
+// node_modules/@tanstack/router-core/dist/esm/ssr/serializer/RawStreamSSRPlugin.js
 var nodeBuffer = globalThis.Buffer;
 var toBase64Fast = nodeBuffer ? (bytes) => nodeBuffer.from(bytes.buffer, bytes.byteOffset, bytes.byteLength).toString("base64") : toBase64;
 var BINARY_FACTORY = () => {};
@@ -442,8 +432,7 @@ function makeFactoryPlugin(tag, sentinel, source) {
 		deserialize: void 0
 	});
 }
-//#endregion
-//#region node_modules/@tanstack/router-core/dist/esm/ssr/serializer/seroval-plugins.ssr.js
+// node_modules/@tanstack/router-core/dist/esm/ssr/serializer/seroval-plugins.ssr.js
 /** Server-only plugins for streaming hydration data into HTML. */
 var ssrSerovalPlugins = [
 	ShallowErrorPlugin,
@@ -470,8 +459,7 @@ var ssrSerovalPlugins = [
 	}),
 	ReadableStreamPlugin
 ];
-//#endregion
-//#region node_modules/@tanstack/router-core/dist/esm/ssr/ssr-server.js
+// node_modules/@tanstack/router-core/dist/esm/ssr/ssr-server.js
 function dehydrateMatch(match) {
 	const dehydratedMatch = {
 		i: dehydrateSsrMatchId(match.id),
@@ -808,8 +796,7 @@ function getNormalizedURL(url, base) {
 		handledProtocolRelativeURL
 	};
 }
-//#endregion
-//#region node_modules/cookie-es/dist/index.mjs
+// node_modules/cookie-es/dist/index.mjs
 function splitSetCookieString(cookiesString) {
 	if (Array.isArray(cookiesString)) return cookiesString.flatMap((c) => splitSetCookieString(c));
 	if (typeof cookiesString !== "string") return [];
@@ -851,8 +838,7 @@ function splitSetCookieString(cookiesString) {
 	}
 	return cookiesStrings;
 }
-//#endregion
-//#region node_modules/@tanstack/router-core/dist/esm/ssr/headers.js
+// node_modules/@tanstack/router-core/dist/esm/ssr/headers.js
 function toHeadersInstance(init) {
 	if (init instanceof Headers) return init;
 	else if (Array.isArray(init)) return new Headers(init);
@@ -868,5 +854,4 @@ function mergeHeaders(...headers) {
 		return acc;
 	}, new Headers());
 }
-//#endregion
 export { defaultSerovalDeserializerPlugins as a, createRawStreamRPCPlugin as i, attachRouterServerSsrUtils as n, makeSerovalPlugin as o, getNormalizedURL as r, createSerializationAdapter as s, mergeHeaders as t };
