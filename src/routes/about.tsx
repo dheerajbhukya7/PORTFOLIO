@@ -9,7 +9,7 @@ function About() {
   return (
     <Shell>
       <Kicker>About</Kicker>
-      <h1 className="font-display text-4xl font-medium tracking-tight">Generative AI, agents, and retrieval.</h1>
+      <h1 className="font-display text-4xl font-medium tracking-tight">Generative AI, Agentic AI.</h1>
       <div className="mt-6 space-y-4 text-muted">
         <p>
           I'm {person.name}, an {person.role.toLowerCase()} at {person.company}. I work on large language
