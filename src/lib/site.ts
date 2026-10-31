@@ -127,6 +127,78 @@ export const notes: Note[] = [
       "A simpler workflow you can monitor beats a clever one you cannot explain to the person who has to run it next month.",
     ],
   },
+  {
+    slug: "chunking-is-not-splitting",
+    title: "Chunking is not splitting",
+    date: "August 2026",
+    excerpt: "How you cut a document is as important as which model reads it.",
+    body: [
+      "Early on I split documents by token count and called it chunking. The retrieval numbers were mediocre and I blamed the embeddings. The embeddings were fine. The chunks were wrong.",
+      "A clinical guideline has sections. A legal contract has clauses. A chat transcript has turns. Splitting across those boundaries breaks the semantic unit the model needs to reason over. The chunk boundary is the first place retrieval fails.",
+      "Semantic chunking — splitting on heading changes, paragraph boundaries, and sentence coherence scores — costs more at ingest time and pays back at query time. On the healthcare RAG system I moved from fixed-size to layout-aware parsing with a sliding window for overlap, and top-5 precision went up measurably without touching the retrieval stack.",
+      "If retrieval is underperforming, look at the chunks before you tune the query.",
+    ],
+  },
+  {
+    slug: "reranking-earns-its-cost",
+    title: "Reranking earns its cost",
+    date: "July 2026",
+    excerpt: "Approximate nearest-neighbour gets you candidates. A cross-encoder picks the answer.",
+    body: [
+      "Vector search is fast and approximate. It finds chunks that are near the query in embedding space, which is not the same as chunks that answer the question. The top result by cosine similarity is often the right topic but the wrong paragraph.",
+      "A cross-encoder reranker reads the query and each candidate together and scores relevance directly. It is slower by an order of magnitude, which is why you run it over 20 candidates and return 3, not over the whole index.",
+      "On every production RAG system I have shipped, adding a reranker after retrieval improved answer quality more than switching embedding models did. The retrieval stack is retrieval plus reranking. Treating them as one step is a common mistake.",
+      "Cohere Rerank and BGE cross-encoders are both solid. The right choice depends on latency budget and whether you need a hosted API or a local model.",
+    ],
+  },
+  {
+    slug: "agents-need-a-stop-button",
+    title: "Agents need a stop button",
+    date: "June 2026",
+    excerpt: "Autonomy without a brake is not a feature. It is a liability.",
+    body: [
+      "A multi-agent system that can read a database, call an API, and open a ticket can also do all three in the wrong order on the wrong record. The question is not whether that will happen. It is whether the person running the system can stop it when it does.",
+      "Every agent I ship now has three things: a structured log of what it decided and why, an allowlist of actions it can take without asking, and a human gate for anything outside that list. The gate is not a fallback. It is part of the design.",
+      "LangGraph makes checkpointing straightforward. MCP makes the tool boundary explicit. Neither is magic. They give you natural places to pause and ask before continuing.",
+      "The teams that resist adding a stop button because it slows the agent down are the same teams that rebuild the system after it runs unchecked. Build the brake first.",
+    ],
+  },
+  {
+    slug: "rag-is-an-architecture-not-a-feature",
+    title: "RAG is an architecture, not a feature",
+    date: "May 2026",
+    excerpt: "Bolting retrieval onto a prompt is not the same as building a retrieval system.",
+    body: [
+      "I have seen RAG described as 'just add a vector search call before the prompt'. That framing produces systems that work in demos and fail in production. The retrieval is the hard part.",
+      "A real retrieval architecture has an ingest pipeline that handles format diversity — PDF, HTML, structured data — and produces clean, well-chunked, correctly embedded documents. It has a query layer with hybrid search, filters, and a reranker. It has observability so you know which queries fail and why.",
+      "The model at the end is the smallest piece of work. I have shipped systems where swapping the LLM made almost no difference to answer quality because the retrieval was already well-tuned. I have also shipped systems where a better model did nothing for a broken retrieval layer.",
+      "Design the retrieval first. The model can come later.",
+    ],
+  },
+  {
+    slug: "embeddings-have-a-vocabulary",
+    title: "Embeddings have a vocabulary",
+    date: "April 2026",
+    excerpt: "A model trained on web text does not automatically understand your domain.",
+    body: [
+      "General-purpose embedding models are trained on broad corpora. They are good at general semantic similarity and worse at domain-specific terminology where a word means something precise — a drug name, a contract clause, a system error code.",
+      "On the healthcare project, early retrieval missed queries that used clinical shorthand because the embeddings mapped those terms near unrelated general uses. Adding a domain-adapted model — fine-tuned on a small set of in-domain pairs — closed most of the gap.",
+      "Fine-tuning embeddings is not always necessary. Hybrid search with BM25 handles exact and rare terms well and is often enough. But knowing where your embedding model was trained and what its vocabulary covers is not optional knowledge. It shapes every retrieval decision downstream.",
+      "Test your embeddings on the actual queries your users will ask, not a generic benchmark. The benchmark measures a different vocabulary.",
+    ],
+  },
+  {
+    slug: "mlflow-is-not-optional",
+    title: "MLflow is not optional",
+    date: "March 2026",
+    excerpt: "If you cannot reproduce a run, you cannot trust the result.",
+    body: [
+      "Early in my career I kept experiment results in a spreadsheet. Run number, parameters, metric. It worked until the spreadsheet had forty rows and I could not remember which code version matched run 23.",
+      "MLflow stores the run, the parameters, the metrics, and the artifact together. When a model in production degrades and you need to roll back or retrain, you do not guess which checkpoint to use. You look it up.",
+      "At Unizen I added drift monitoring on top: a scheduled job that scores recent predictions against a held-out slice and logs the result as a new MLflow run. When the metric crosses a threshold, an alert fires. The model does not silently get worse.",
+      "Tracking is not overhead. It is the difference between a system you operate and one you merely hope is still working.",
+    ],
+  },
 ];
 
 export function noteBySlug(slug: string) {

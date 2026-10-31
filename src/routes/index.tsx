@@ -15,7 +15,7 @@ function Home() {
       <section className="hero-section">
         <div className="hero-copy">
           <div className="availability"><span className="availability-dot" /> AI/ML ENGINEER <span className="availability-divider">·</span> HYDERABAD, INDIA</div>
-          <h1 className="hero-title">Building AI that<br /><span className="hero-accent">works in the real world.</span></h1>
+          <h1 className="hero-title">Engineering AI<br /><span className="hero-accent">that earns trust.</span></h1>
           <p className="hero-intro">
             I'm {person.name.split(" ")[0]}, an AI/ML engineer focused on generative AI, intelligent agents, and retrieval systems that people can actually trust.
           </p>
