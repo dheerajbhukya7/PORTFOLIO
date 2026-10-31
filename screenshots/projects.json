@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/projects",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Dheeraj Bhukya — AI/ML Engineer",
+      "hasCanvas": false,
+      "bodyTextLen": 1156,
+      "bodyTextHash": "97c7caad63e36c4a5d42e39c24e46394c88f8d3adfefed588d700e6e82c4383a",
+      "bodyTextPrefix": "Dheeraj About Writings Projects Now PROJECTS Things I've built P",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/projects.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Dheeraj Bhukya — AI/ML Engineer",
+      "hasCanvas": false,
+      "bodyTextLen": 1156,
+      "bodyTextHash": "97c7caad63e36c4a5d42e39c24e46394c88f8d3adfefed588d700e6e82c4383a",
+      "bodyTextPrefix": "Dheeraj About Writings Projects Now PROJECTS Things I've built P",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/projects-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/projects.json"
+}

@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/gate",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Dheeraj Bhukya — AI/ML Engineer",
+      "hasCanvas": false,
+      "bodyTextLen": 606,
+      "bodyTextHash": "b20decc17217645ac3cba91380bca2249b8ac3e5bfb0253cf8c6b323971e0e20",
+      "bodyTextPrefix": "Dheeraj Gate About Writings Projects Now THE REVIEW GATE You are",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/gate.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Dheeraj Bhukya — AI/ML Engineer",
+      "hasCanvas": false,
+      "bodyTextLen": 606,
+      "bodyTextHash": "b20decc17217645ac3cba91380bca2249b8ac3e5bfb0253cf8c6b323971e0e20",
+      "bodyTextPrefix": "Dheeraj Gate About Writings Projects Now THE REVIEW GATE You are",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/gate-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/gate.json"
+}

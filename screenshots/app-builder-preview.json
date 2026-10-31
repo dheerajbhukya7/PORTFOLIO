@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Dheeraj Bhukya — AI/ML Engineer",
+      "hasCanvas": false,
+      "bodyTextLen": 1539,
+      "bodyTextHash": "6fa28ab216158f84b3cb88aa6b6ce78c74fc0610399931cc86c4acdcd447ebac",
+      "bodyTextPrefix": "Dheeraj About Writings Projects Now Dheeraj Bhukya AI/ML Enginee",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Dheeraj Bhukya — AI/ML Engineer",
+      "hasCanvas": false,
+      "bodyTextLen": 1539,
+      "bodyTextHash": "6fa28ab216158f84b3cb88aa6b6ce78c74fc0610399931cc86c4acdcd447ebac",
+      "bodyTextPrefix": "Dheeraj About Writings Projects Now Dheeraj Bhukya AI/ML Enginee",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-preview.json"
+}
