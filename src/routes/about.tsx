@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { ArrowUpRight, Github, Linkedin, Mail } from "lucide-react";
 import { Kicker, Rule, Shell } from "@/components/shell";
 import { person, study, work } from "@/lib/site";
 
@@ -52,6 +53,36 @@ function About() {
           </li>
         ))}
       </ul>
+
+      <Rule />
+      <Kicker>Connect</Kicker>
+      <div className="flex flex-wrap gap-4 pt-2">
+        <a
+          href={person.linkedin}
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex items-center gap-2 rounded-xl border px-4 py-2.5 text-sm font-medium transition hover:border-olive hover:text-olive"
+          style={{ background: "var(--color-paper-2)", borderColor: "var(--color-line)", color: "var(--color-ink)" }}
+        >
+          <Linkedin size={16} /> LinkedIn <ArrowUpRight size={14} />
+        </a>
+        <a
+          href={person.github}
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex items-center gap-2 rounded-xl border px-4 py-2.5 text-sm font-medium transition hover:border-olive hover:text-olive"
+          style={{ background: "var(--color-paper-2)", borderColor: "var(--color-line)", color: "var(--color-ink)" }}
+        >
+          <Github size={16} /> GitHub <ArrowUpRight size={14} />
+        </a>
+        <a
+          href={`mailto:${person.email}`}
+          className="inline-flex items-center gap-2 rounded-xl border px-4 py-2.5 text-sm font-medium transition hover:border-olive hover:text-olive"
+          style={{ background: "var(--color-paper-2)", borderColor: "var(--color-line)", color: "var(--color-ink)" }}
+        >
+          <Mail size={16} /> Email <ArrowUpRight size={14} />
+        </a>
+      </div>
     </Shell>
   );
 }

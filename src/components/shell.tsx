@@ -68,7 +68,10 @@ export function Shell({ children, wide = false }: { children: React.ReactNode; w
         <div className="footer-inner">
           <span>© {new Date().getFullYear()} {person.name}</span>
           <span className="footer-note">Built with curiosity <span className="brand-period">✳</span></span>
-          <a href={person.github} target="_blank" rel="noreferrer">GitHub <ArrowUpRight size={13} /></a>
+          <div className="flex items-center gap-4">
+            <a href={person.linkedin} target="_blank" rel="noreferrer">LinkedIn <ArrowUpRight size={13} /></a>
+            <a href={person.github} target="_blank" rel="noreferrer">GitHub <ArrowUpRight size={13} /></a>
+          </div>
         </div>
       </footer>
     </div>
