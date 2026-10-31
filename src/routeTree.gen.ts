@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as BRouteImport } from './routes/b'
 import { Route as GateRouteImport } from './routes/gate'
 import { Route as NowRouteImport } from './routes/now'
 import { Route as ProjectsRouteImport } from './routes/projects'
@@ -26,6 +27,11 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BRoute = BRouteImport.update({
+  id: '/b',
+  path: '/b',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GateRoute = GateRouteImport.update({
@@ -62,6 +68,7 @@ const WritingsSlugRoute = WritingsSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/b': typeof BRoute
   '/gate': typeof GateRoute
   '/now': typeof NowRoute
   '/projects': typeof ProjectsRoute
@@ -72,6 +79,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/b': typeof BRoute
   '/gate': typeof GateRoute
   '/now': typeof NowRoute
   '/projects': typeof ProjectsRoute
@@ -82,6 +90,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/b': typeof BRoute
   '/gate': typeof GateRoute
   '/now': typeof NowRoute
   '/projects': typeof ProjectsRoute
@@ -94,6 +103,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/b'
     | '/gate'
     | '/now'
     | '/projects'
@@ -104,6 +114,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/b'
     | '/gate'
     | '/now'
     | '/projects'
@@ -113,6 +124,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/b'
     | '/gate'
     | '/now'
     | '/projects'
@@ -124,6 +136,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  BRoute: typeof BRoute
   GateRoute: typeof GateRoute
   NowRoute: typeof NowRoute
   ProjectsRoute: typeof ProjectsRoute
@@ -144,6 +157,13 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/b': {
+      id: '/b'
+      path: '/b'
+      fullPath: '/b'
+      preLoaderRoute: typeof BRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/gate': {
@@ -208,6 +228,7 @@ const WritingsRouteWithChildren = WritingsRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  BRoute: BRoute,
   GateRoute: GateRoute,
   NowRoute: NowRoute,
   ProjectsRoute: ProjectsRoute,

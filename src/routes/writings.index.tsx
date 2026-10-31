@@ -1,261 +1,359 @@
+
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Kicker, Shell } from "@/components/shell";
 import { notes } from "@/lib/site";
 
-export const Route = createFileRoute("/writings/")({ component: Writings });
+export const Route = createFileRoute("/writings/")({
+  component: Writings,
+});
 
 const TAG_MAP: Record<string, string> = {
-  "cite-the-page":           "RAG",
+  "cite-the-page": "RAG",
   "ship-the-boring-version": "Agents",
   "chunking-is-not-splitting": "RAG",
-  "reranking-earns-its-cost":  "RAG",
+  "reranking-earns-its-cost": "RAG",
   "agents-need-a-stop-button": "Agents",
   "rag-is-an-architecture-not-a-feature": "RAG",
   "embeddings-have-a-vocabulary": "ML",
-  "mlflow-is-not-optional":    "ML",
+  "mlflow-is-not-optional": "ML",
 };
 
 const GLYPH_MAP: Record<string, string> = {
-  "RAG":    "⬡",
-  "Agents": "◈",
-  "ML":     "◎",
+  RAG: "◈",
+  Agents: "⌘",
+  ML: "∿",
 };
 
 function Writings() {
   return (
     <Shell>
-      {/* ── page header ── */}
-      <Kicker>Writings</Kicker>
-      <h1 className="font-display text-4xl font-medium tracking-tight" style={{ letterSpacing: "-.06em" }}>
-        Notes from the work.
-      </h1>
-      <p className="mt-3 text-muted" style={{ maxWidth: 460, lineHeight: 1.8 }}>
-        Short pieces on RAG, agents, and ML in production.
-        Thinking in progress — replaced when it changes.
-      </p>
+      <section className="writing-page">
+        <div className="writing-intro">
+          <Kicker>Writing / Field Notes</Kicker>
+          <h1 className="writing-heading">
+            Ideas worth
+            <span> thinking about.</span>
+          </h1>
+          <p className="writing-description">
+            Notes from building intelligent systems — RAG, autonomous agents,
+            machine learning, and the engineering decisions behind them.
+          </p>
+          <div className="writing-count">
+            <span className="writing-count-dot" />
+            {String(notes.length).padStart(2, "0")} NOTES
+            <span className="writing-count-divider">/</span>
+            ENGINEERING JOURNAL
+          </div>
+        </div>
 
-      {/* ── tag legend ── */}
-      <div style={{ display: "flex", gap: 10, marginTop: 28, flexWrap: "wrap" }}>
-        {(["RAG", "Agents", "ML"] as const).map((tag) => (
-          <span key={tag} style={{
-            display: "inline-flex", alignItems: "center", gap: 6,
-            padding: "5px 12px",
-            border: "1px solid var(--writing-tag-border)",
-            borderRadius: 99,
-            fontSize: 11, fontWeight: 650, letterSpacing: ".12em",
-            color: "var(--writing-tag-fg)",
-            background: "var(--writing-tag-bg)",
-          }}>
-            <span style={{ fontSize: 13, lineHeight: 1 }}>{GLYPH_MAP[tag]}</span>
-            {tag}
-          </span>
-        ))}
-      </div>
+        <div className="writing-legend">
+          {(["RAG", "Agents", "ML"] as const).map((tag) => (
+            <span className="writing-filter" key={tag}>
+              <span>{GLYPH_MAP[tag]}</span>
+              {tag}
+            </span>
+          ))}
+        </div>
 
-      {/* ── writings grid ── */}
-      <ul style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 340px), 1fr))",
-        gap: 16,
-        marginTop: 40,
-        padding: 0,
-        listStyle: "none",
-      }}>
-        {notes.map((n, i) => {
-          const tag = TAG_MAP[n.slug] ?? "ML";
-          const glyph = GLYPH_MAP[tag];
-          const featured = i === 0;
-          return (
-            <li key={n.slug} style={featured ? { gridColumn: "1 / -1" } : {}}>
+        <div className="writing-grid">
+          {notes.map((note, index) => {
+            const tag = TAG_MAP[note.slug] ?? "ML";
+            const glyph = GLYPH_MAP[tag];
+            const featured = index === 0;
+
+            return (
               <Link
+                key={note.slug}
                 to="/writings/$slug"
-                params={{ slug: n.slug }}
-                style={{ display: "block", height: "100%", textDecoration: "none" }}
+                params={{ slug: note.slug }}
+                className={`writing-link ${featured ? "featured" : ""}`}
               >
-                <article
-                  className="writing-card"
-                  data-featured={featured ? "true" : undefined}
-                  data-tag={tag}
-                >
-                  {/* glyph watermark */}
-                  <span className="writing-card-glyph" aria-hidden="true">
+                <article className="writing-card">
+                  <div className="writing-card-top">
+                    <span className="writing-index">
+                      NOTE_{String(index + 1).padStart(2, "0")}
+                    </span>
+                    <span className="writing-date">{note.date}</span>
+                  </div>
+
+                  <div className="writing-symbol" aria-hidden="true">
                     {glyph}
-                  </span>
+                  </div>
 
-                  <div className="writing-card-inner">
-                    <header className="writing-card-header">
-                      <span className="writing-tag-chip">
-                        {glyph} {tag}
-                      </span>
-                      <span className="writing-date">{n.date}</span>
-                    </header>
+                  <div className="writing-card-content">
+                    <span className="writing-tag">
+                      <span>{glyph}</span>
+                      {tag}
+                    </span>
 
-                    <h2 className="writing-card-title">{n.title}</h2>
-                    <p className="writing-card-excerpt">{n.excerpt}</p>
+                    <h2>{note.title}</h2>
+                    <p>{note.excerpt}</p>
 
-                    <span className="writing-read-more">
-                      Read →
+                    <span className="writing-read">
+                      Explore note <span aria-hidden="true">↗</span>
                     </span>
                   </div>
                 </article>
               </Link>
-            </li>
-          );
-        })}
-      </ul>
+            );
+          })}
+        </div>
+      </section>
 
-      {/* ── inline styles ── */}
       <style>{`
-        :root {
-          --writing-tag-border: color-mix(in srgb, var(--color-olive) 38%, var(--color-line));
-          --writing-tag-fg:     var(--color-olive);
-          --writing-tag-bg:     color-mix(in srgb, var(--color-olive) 8%, transparent);
-          --card-bg:            var(--color-paper-2);
-          --card-border:        var(--color-line);
-          --card-hover-border:  color-mix(in srgb, var(--color-olive) 55%, var(--color-line));
+        .writing-page {
+          --writing-violet: #a78bfa;
+          --writing-aqua: #67e8f9;
+          --writing-panel: rgba(255,255,255,.035);
+          --writing-border: rgba(167,139,250,.17);
+          padding-bottom: 70px;
+        }
+
+        .writing-intro {
+          max-width: 720px;
+          padding: 22px 0 12px;
+        }
+
+        .writing-heading {
+          margin: 18px 0 0;
+          font-size: clamp(42px, 7vw, 76px);
+          line-height: .99;
+          font-weight: 650;
+          letter-spacing: -.065em;
+          color: var(--color-ink);
+        }
+
+        .writing-heading span {
+          display: block;
+          background: linear-gradient(100deg, var(--writing-violet), var(--writing-aqua));
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+        }
+
+        .writing-description {
+          max-width: 520px;
+          margin-top: 24px;
+          color: var(--color-muted);
+          font-size: 15px;
+          line-height: 1.85;
+        }
+
+        .writing-count {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          margin-top: 28px;
+          color: var(--color-muted);
+          font-size: 10px;
+          font-weight: 700;
+          letter-spacing: .16em;
+        }
+
+        .writing-count-dot {
+          width: 7px;
+          height: 7px;
+          border-radius: 50%;
+          background: var(--writing-aqua);
+          box-shadow: 0 0 12px var(--writing-aqua);
+        }
+
+        .writing-count-divider {
+          color: var(--writing-violet);
+        }
+
+        .writing-legend {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 9px;
+          margin: 34px 0 20px;
+        }
+
+        .writing-filter {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 8px 13px;
+          border: 1px solid var(--writing-border);
+          border-radius: 99px;
+          background: var(--writing-panel);
+          color: var(--color-ink);
+          font-size: 11px;
+          letter-spacing: .04em;
+        }
+
+        .writing-filter span {
+          color: var(--writing-aqua);
+        }
+
+        .writing-grid {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 15px;
+        }
+
+        .writing-link {
+          display: block;
+          min-width: 0;
+          color: inherit;
+          text-decoration: none;
         }
 
         .writing-card {
           position: relative;
+          display: flex;
+          flex-direction: column;
+          min-height: 265px;
           height: 100%;
           overflow: hidden;
-          border: 1px solid var(--card-border);
+          padding: 23px;
+          border: 1px solid var(--writing-border);
           border-radius: 18px;
-          background: var(--card-bg);
-          transition: transform .25s cubic-bezier(.2,.75,.25,1),
-                      border-color .25s, box-shadow .25s;
-          cursor: pointer;
-        }
-        .writing-card:hover {
-          transform: translateY(-5px);
-          border-color: var(--card-hover-border);
-          box-shadow: 0 20px 60px rgba(0,0,0,.14),
-                      0 0 0 1px color-mix(in srgb, var(--color-olive) 18%, transparent);
+          background:
+            radial-gradient(ellipse at 100% 0%, rgba(103,232,249,.07), transparent 48%),
+            linear-gradient(145deg, rgba(167,139,250,.055), transparent 65%),
+            var(--writing-panel);
+          transition: transform .25s ease, border-color .25s ease,
+            box-shadow .25s ease;
         }
 
-        /* featured card — full-width hero row */
-        .writing-card[data-featured] {
-          display: grid;
-          grid-template-columns: 1fr 1.6fr;
-          min-height: 220px;
-          background:
-            radial-gradient(ellipse at 20% 60%, color-mix(in srgb, var(--color-olive) 9%, transparent), transparent 55%),
-            var(--card-bg);
+        .writing-link:hover .writing-card {
+          transform: translateY(-5px);
+          border-color: rgba(103,232,249,.42);
+          box-shadow: 0 18px 48px rgba(0,0,0,.2),
+            0 0 25px rgba(167,139,250,.08);
         }
+
+        .writing-card-top {
+          display: flex;
+          justify-content: space-between;
+          gap: 12px;
+          align-items: center;
+        }
+
+        .writing-index, .writing-date {
+          color: var(--color-muted);
+          font-size: 10px;
+          letter-spacing: .12em;
+        }
+
+        .writing-symbol {
+          position: absolute;
+          top: 48px;
+          right: 22px;
+          color: rgba(167,139,250,.10);
+          font-size: 90px;
+          line-height: 1;
+          pointer-events: none;
+          transition: color .25s ease, transform .25s ease;
+        }
+
+        .writing-link:hover .writing-symbol {
+          color: rgba(103,232,249,.16);
+          transform: rotate(-8deg) scale(1.08);
+        }
+
+        .writing-card-content {
+          position: relative;
+          z-index: 1;
+          display: flex;
+          flex: 1;
+          flex-direction: column;
+          align-items: flex-start;
+          margin-top: 38px;
+        }
+
+        .writing-tag {
+          display: inline-flex;
+          gap: 7px;
+          align-items: center;
+          padding: 5px 9px;
+          border: 1px solid rgba(167,139,250,.22);
+          border-radius: 99px;
+          color: var(--writing-violet);
+          background: rgba(167,139,250,.07);
+          font-size: 10px;
+          font-weight: 700;
+          letter-spacing: .1em;
+          text-transform: uppercase;
+        }
+
+        .writing-card h2 {
+          max-width: 430px;
+          margin: 17px 0 0;
+          color: var(--color-ink);
+          font-size: clamp(19px, 2.3vw, 25px);
+          font-weight: 650;
+          line-height: 1.2;
+          letter-spacing: -.045em;
+        }
+
+        .writing-card p {
+          max-width: 470px;
+          margin: 12px 0 20px;
+          color: var(--color-muted);
+          font-size: 13px;
+          line-height: 1.8;
+        }
+
+        .writing-read {
+          display: inline-flex;
+          gap: 9px;
+          align-items: center;
+          margin-top: auto;
+          color: var(--writing-aqua);
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: .07em;
+        }
+
+        .writing-read span {
+          transition: transform .2s ease;
+        }
+
+        .writing-link:hover .writing-read span {
+          transform: translate(3px, -3px);
+        }
+
+        .writing-link.featured {
+          grid-column: 1 / -1;
+        }
+
+        .writing-link.featured .writing-card {
+          min-height: 285px;
+          background:
+            radial-gradient(ellipse at 85% 20%, rgba(167,139,250,.15), transparent 50%),
+            radial-gradient(ellipse at 10% 100%, rgba(103,232,249,.08), transparent 45%),
+            var(--writing-panel);
+        }
+
+        .writing-link.featured .writing-card-content {
+          max-width: 650px;
+        }
+
+        .writing-link.featured h2 {
+          font-size: clamp(25px, 3.5vw, 36px);
+        }
+
         @media (max-width: 640px) {
-          .writing-card[data-featured] {
+          .writing-grid {
             grid-template-columns: 1fr;
+          }
+
+          .writing-link.featured {
+            grid-column: auto;
+          }
+
+          .writing-card {
+            min-height: 245px;
+            padding: 20px;
           }
         }
 
-        /* glyph watermark (left panel on featured, absolute on normal) */
-        .writing-card-glyph {
-          display: grid;
-          place-items: center;
-          font-size: 90px;
-          line-height: 1;
-          color: color-mix(in srgb, var(--color-olive) 14%, transparent);
-          user-select: none;
-          pointer-events: none;
-          transition: color .3s;
-        }
-        .writing-card:hover .writing-card-glyph {
-          color: color-mix(in srgb, var(--color-olive) 22%, transparent);
-        }
-        /* normal cards: glyph is absolute top-right decoration */
-        .writing-card:not([data-featured]) .writing-card-glyph {
-          position: absolute;
-          top: -10px; right: -8px;
-          font-size: 96px;
-          opacity: .08;
-        }
-        /* featured: glyph is a grid cell */
-        .writing-card[data-featured] .writing-card-glyph {
-          font-size: 120px;
-          opacity: .55;
-          padding: 24px;
-          border-right: 1px solid var(--card-border);
-        }
-        @media (max-width: 640px) {
-          .writing-card[data-featured] .writing-card-glyph { display: none; }
-        }
-
-        .writing-card-inner {
-          display: flex;
-          flex-direction: column;
-          gap: 10px;
-          padding: 26px 26px 22px;
-        }
-        .writing-card[data-featured] .writing-card-inner {
-          justify-content: center;
-        }
-
-        .writing-card-header {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 10px;
-        }
-
-        .writing-tag-chip {
-          display: inline-flex;
-          align-items: center;
-          gap: 5px;
-          padding: 3px 10px;
-          border-radius: 99px;
-          font-size: 10px;
-          font-weight: 700;
-          letter-spacing: .14em;
-          text-transform: uppercase;
-          color: var(--color-olive);
-          background: color-mix(in srgb, var(--color-olive) 10%, transparent);
-          border: 1px solid color-mix(in srgb, var(--color-olive) 28%, transparent);
-        }
-
-        .writing-date {
-          font-size: 11px;
-          color: var(--color-muted);
-          opacity: .75;
-          flex-shrink: 0;
-        }
-
-        .writing-card-title {
-          margin: 0;
-          font-size: 20px;
-          font-weight: 650;
-          line-height: 1.2;
-          letter-spacing: -.04em;
-          color: var(--color-ink);
-        }
-        .writing-card[data-featured] .writing-card-title {
-          font-size: clamp(22px, 2.8vw, 30px);
-        }
-
-        .writing-card-excerpt {
-          margin: 0;
-          font-size: 13px;
-          line-height: 1.75;
-          color: var(--color-muted);
-        }
-        .writing-card[data-featured] .writing-card-excerpt {
-          font-size: 14px;
-          max-width: 480px;
-        }
-
-        .writing-read-more {
-          display: inline-block;
-          margin-top: 6px;
-          font-size: 12px;
-          font-weight: 700;
-          letter-spacing: .06em;
-          color: var(--color-olive);
-          opacity: 0;
-          transform: translateX(-6px);
-          transition: opacity .22s, transform .22s;
-        }
-        .writing-card:hover .writing-read-more {
-          opacity: 1;
-          transform: translateX(0);
+        @media (prefers-reduced-motion: reduce) {
+          .writing-card, .writing-symbol, .writing-read span {
+            transition: none;
+          }
         }
       `}</style>
     </Shell>
