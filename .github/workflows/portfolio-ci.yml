@@ -19,3 +19,4 @@ jobs:
       - run: npm ci
       - run: npm run typecheck
       - run: npm test
+      - run: node --experimental-strip-types --test src/lib/project-filter.test.ts
