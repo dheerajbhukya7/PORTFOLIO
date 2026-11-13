@@ -3,17 +3,14 @@ import { ArrowUpRight, Search } from "lucide-react";
 import { useState } from "react";
 import { Kicker, Shell } from "@/components/shell";
 import { projects } from "@/lib/site";
+import { filterProjects, type ProjectScope } from "@/lib/project-filter";
 
 export const Route = createFileRoute("/projects")({ component: Projects });
 
 function Projects() {
   const [query, setQuery] = useState("");
-  const [scope, setScope] = useState<"all" | "public" | "case-studies">("all");
-  const visible = projects.filter((p) => {
-    const matchesScope = scope === "all" || (scope === "public" ? Boolean(p.href) : !p.href);
-    const matchesQuery = [p.title, p.summary, p.year].join(" ").toLowerCase().includes(query.trim().toLowerCase());
-    return matchesScope && matchesQuery;
-  });
+  const [scope, setScope] = useState<ProjectScope>("all");
+  const visible = filterProjects(projects, query, scope);
 
   return (
     <Shell wide>
