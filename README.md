@@ -30,3 +30,19 @@ npm run check:auth
 - [City Intelligence Agent](https://github.com/dheerajbhukya7/city-intelligence-agent): external data tools.
 
 See [redesign notes](REDESIGN-NOTES.md) for UI changes. Never commit credentials.
+
+## Repository overview
+
+AI engineering portfolio showcasing Generative AI, RAG, agentic systems and full-stack projects.
+
+**Suggested GitHub topics:** `ai-engineering` `portfolio` `react` `typescript` `vite` `tanstack-router` `generative-ai`.
+
+## System architecture
+
+```mermaid
+flowchart LR
+  Visitor --> ReactUI[React UI]
+  ReactUI --> Router[TanStack Router]
+  Router --> Projects[Project data]
+  Router --> Server[Server and auth features]
+```

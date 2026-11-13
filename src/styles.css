@@ -429,3 +429,22 @@ a:focus-visible, button:focus-visible { outline: 2px solid #65e3d1; outline-offs
   letter-spacing: .14em; box-shadow: 0 12px 36px rgba(0,0,0,.12);
 }
 @media (max-width: 600px) { .hero-art::after { right: -1%; bottom: 12%; font-size: 7px; } }
+
+/* Searchable project library */
+.project-library-tools { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px; margin:32px 0 12px; }
+.project-filter-group { display:flex; flex-wrap:wrap; gap:8px; }
+.project-filter { border:1px solid var(--color-line); border-radius:999px; padding:9px 15px; color:var(--color-muted); background:var(--color-paper-2); font:inherit; font-size:13px; }
+.project-filter[aria-pressed="true"] { color:var(--color-paper); background:var(--color-olive); border-color:var(--color-olive); font-weight:700; }
+.project-search { display:flex; align-items:center; gap:10px; border:1px solid var(--color-line); border-radius:12px; background:var(--color-paper-2); color:var(--color-muted); padding:10px 14px; flex:0 1 340px; }
+.project-search input { min-width:0; width:100%; background:transparent; color:var(--color-ink); font:inherit; border:0; outline:none; }
+.project-search:focus-within { outline:2px solid var(--color-olive); outline-offset:3px; }
+.project-result-count { color:var(--color-muted); font-size:13px; margin:12px 0 20px; }
+.project-library { margin-top:20px; }
+.project-library-title { font:600 22px/1.2 var(--font-display); margin:10px 0; letter-spacing:-.025em; }
+.project-empty { padding:40px 24px; border:1px dashed var(--color-line); border-radius:18px; text-align:center; color:var(--color-muted); }
+.project-empty h2 { color:var(--color-ink); font-size:22px; }
+.project-empty button { margin:20px auto 0; }
+.skip-link { position:absolute; top:8px; left:8px; z-index:100; transform:translateY(-160%); padding:10px 16px; background:var(--color-paper-2); color:var(--color-ink); border:2px solid var(--color-olive); border-radius:8px; }
+.skip-link:focus { transform:translateY(0); }
+@media (max-width:640px) { .project-search { flex:1 1 100%; } .project-library-tools { align-items:stretch; } }
+@media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } .project-card,.project-filter,.button-primary,.button-secondary { transition:none; } }
