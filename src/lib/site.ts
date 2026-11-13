@@ -85,7 +85,14 @@ export const projects: {
     title: "RAG Book Assistant",
     year: "GitHub · Python",
     href: "https://github.com/dheerajbhukya7/RAG-BOOK-ASSISTANT",
-    summary: "Upload a PDF, search it with Chroma, and answer from the pages. Streamlit, LangChain, and Mistral.",
+    summary: "Upload a PDF, search its FAISS index, and generate answers from retrieved passages. Streamlit, LangChain, and Mistral.",
+  },
+  {
+    slug: "jobhunt",
+    title: "JobHunt",
+    year: "GitHub · Python",
+    href: "https://github.com/dheerajbhukya7/JOBHUNT",
+    summary: "AI-assisted job discovery, resume matching and human-reviewed application drafts.",
   },
   {
     slug: "movie-extractor",
