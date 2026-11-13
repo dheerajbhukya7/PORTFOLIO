@@ -31,13 +31,14 @@ export function Shell({ children, wide = false }: { children: React.ReactNode; w
 
   return (
     <div className="site-shell min-h-screen">
+      <a href="#main-content" className="skip-link">Skip to content</a>
       <header className="site-header">
         <nav className="nav-wrap" aria-label="Main navigation">
           <Link to="/" className="brand-mark" onClick={() => setMenuOpen(false)}>
             <span className="brand-symbol">D</span>
             <span>{person.name.split(" ")[0]}<span className="brand-period">.</span></span>
           </Link>
-          <div className={`nav-links ${menuOpen ? "nav-links-open" : ""}`}>
+          <div id="main-navigation-links" className={`nav-links ${menuOpen ? "nav-links-open" : ""}`}>
             {links.map((l) => {
               const active = path === l.to || path.startsWith(`${l.to}/`);
               return (
@@ -57,13 +58,14 @@ export function Shell({ children, wide = false }: { children: React.ReactNode; w
               {dark ? <Sun size={17} /> : <Moon size={17} />}
             </button>
             <button type="button" className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)}
+              aria-expanded={menuOpen} aria-controls="main-navigation-links"
               aria-label={menuOpen ? "Close menu" : "Open menu"}>
               {menuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
         </nav>
       </header>
-      <main className={`site-main ${wide ? "site-main-wide" : ""}`}>{children}</main>
+      <main id="main-content" tabIndex={-1} className={`site-main ${wide ? "site-main-wide" : ""}`}>{children}</main>
       <footer className="site-footer">
         <div className="footer-inner">
           <span>© {new Date().getFullYear()} {person.name}</span>
