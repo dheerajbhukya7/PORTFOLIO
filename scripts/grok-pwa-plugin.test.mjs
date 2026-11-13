@@ -6,9 +6,9 @@ import { fileURLToPath } from "node:url";
 import test from "node:test";
 import {
   appNameFromHost,
-  createHeadInjector,
+  createHeadInjector as createHeadInjectorImpl,
   grokXCreatorHeadTags,
-  injectGrokPwaHead,
+  injectGrokPwaHead as injectGrokPwaHeadImpl,
   isDocumentPath,
   isInstallQuery,
   publicAppHost,
@@ -20,6 +20,12 @@ import {
 import { renderInstallPage } from "./grok-pwa-plugin.mjs";
 
 const TEMPLATE_ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+
+// Generic template tests must not inherit the real portfolio title or OG image.
+// Explicit cwd/site fixtures below still exercise the actual filesystem behavior.
+const TEST_ROOT = mkdtempSync(join(tmpdir(), "grok-pwa-fixture-"));
+const injectGrokPwaHead = (html, ctx = {}) => injectGrokPwaHeadImpl(html, { cwd: TEST_ROOT, ...ctx });
+const createHeadInjector = (ctx = {}) => createHeadInjectorImpl({ cwd: TEST_ROOT, ...ctx });
 
 test("injects before </head>", () => {
   const out = injectGrokPwaHead("<html><head><title>x</title></head><body></body></html>");
